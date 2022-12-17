@@ -1,13 +1,15 @@
 import { Notification } from '../entities/notification';
 
 export abstract class NotificationsRepository {
-  public abstract create(
-    notification: NotificationsRepository.Request,
-  ): Promise<NotificationsRepository.Response>;
-}
+  abstract create(notification: Notification): Promise<Notification>;
 
-export namespace NotificationsRepository {
-  export type Request = Notification;
+  abstract findById(
+    notificationId: Notification['id'],
+  ): Promise<Notification | null>;
 
-  export type Response = Notification;
+  abstract save(notification: Notification): Promise<Notification>;
+
+  abstract countManyByRecipientById(recipientId: string): Promise<number>;
+
+  abstract findManyByRecipientId(recipientId: string): Promise<Notification[]>;
 }

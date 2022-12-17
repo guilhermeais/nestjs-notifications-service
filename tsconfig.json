@@ -7,6 +7,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
+    "resolveJsonModule": true,
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -19,5 +20,11 @@
     "strictPropertyInitialization": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@/application/*": ["src/application/*"],
+      "@/helpers/*": ["src/helpers/*"],
+      "@/infra/*": ["src/infra/*"],
+      "@/test/*": ["test/*"]
+    }
   }
 }

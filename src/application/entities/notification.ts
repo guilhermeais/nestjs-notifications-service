@@ -3,10 +3,12 @@ import { Replace } from '../helpers/Replace';
 import { Content } from './content';
 
 export interface NotificationProps {
+  id?: string;
   recipientId: string;
   content: Content;
   category: string;
   readAt?: Date | null;
+  canceledAt?: Date | null;
   createdAt: Date;
 }
 
@@ -15,7 +17,7 @@ export class Notification {
   private props: NotificationProps;
 
   constructor(props: Replace<NotificationProps, { createdAt?: Date }>) {
-    this._id = randomUUID();
+    this._id = props.id || randomUUID();
     this.props = { ...props, createdAt: props.createdAt || new Date() };
   }
 
@@ -51,11 +53,23 @@ export class Notification {
     return this.props.readAt;
   }
 
-  set readAt(readAt: Date | null | undefined) {
-    this.props.readAt = readAt;
-  }
-
   public get createdAt(): Date {
     return this.props.createdAt;
+  }
+
+  public get canceledAt(): Date | null | undefined {
+    return this.props.canceledAt;
+  }
+
+  public cancel(): void {
+    this.props.canceledAt = new Date();
+  }
+
+  public read(): void {
+    this.props.readAt = new Date();
+  }
+
+  public unread(): void {
+    this.props.readAt = null;
   }
 }
